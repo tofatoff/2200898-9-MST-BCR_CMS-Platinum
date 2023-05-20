@@ -1,0 +1,23 @@
+.logo-bcr {
+  width: 100px;
+  height: 34px;
+  background-color: #cfd4ed;
+}
+
+.login-form {
+  width: 33%;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  place-content: center;
+  flex-direction: column;
+  padding: 55px;
+}
+
+:global(#sign-in) {
+  display: flex;
+  flex-direction: row-reverse;
+  background-image: url("../../assets/image 2.png");
+  background-size: cover;
+  background-position: center;
+}
