@@ -1,31 +1,21 @@
 import React from "react";
-import { FiHome, FiTruck } from "react-icons/fi";
-
-import styles from "./styles.module.css";
+import Header from "../../components/header";
+import Sidebar from "../../components/sidebar";
 
 const Dashboard = () => {
   return (
-    <div>
-      <div className={styles.sidebar}>
-        <ul className="nav nav-pills nav-flush flex-column mb-auto text-center">
-          <li className="nav-item">
-            <a href="/" className={styles["sidebar-item"]}>
-              <div className={styles["logo-bcr-sq"]}></div>
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="#" className={styles["sidebar-item"]}>
-              <FiHome className={styles.fi} />
-              <h2>Dashboard</h2>
-            </a>
-          </li>
-          <li>
-            <a href="#" className={styles["sidebar-item"]}>
-              <FiTruck className={styles.fi} />
-              <h2>Cars</h2>
-            </a>
-          </li>
-        </ul>
+    <div
+      style={{
+        display: "flex",
+      }}
+    >
+      <Sidebar active="dashboard" />
+      <div>
+        <Header />
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, totam modi repudiandae sit ullam beatae cupiditate numquam itaque sapiente, voluptates omnis? Quae assumenda maiores maxime aut nostrum? Error fuga eius quae veniam
+        minus officia impedit unde adipisci, modi facere laudantium incidunt ab culpa reprehenderit blanditiis aliquam eum officiis iure alias totam praesentium. Doloremque corrupti temporibus deserunt aut, magnam minima reprehenderit modi
+        nesciunt, porro, quas repellendus accusantium dolor quod natus neque et? Deleniti corrupti assumenda doloremque maxime esse dignissimos quam aspernatur eum eveniet ratione natus nam, ipsum voluptatum debitis dolorem odit saepe
+        dolore amet non temporibus. Distinctio debitis commodi iusto atque.
       </div>
     </div>
   );

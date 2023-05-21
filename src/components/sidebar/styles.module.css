@@ -4,6 +4,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  grid-column: 1;
+  grid-row: 1 / span 2;
 }
 
 .logo-bcr-sq {
@@ -36,5 +38,8 @@
 
 .sidebar-item:hover {
   background: rgba(255, 255, 255, 0.3);
-  color: white;
+}
+
+.sidebar-item-active {
+  background: rgba(255, 255, 255, 0.3);
 }
