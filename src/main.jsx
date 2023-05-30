@@ -6,6 +6,16 @@ import SignIn from "./pages/SignIn/index.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Cars from "./pages/Cars";
+import { useSelector } from "react-redux";
+import { selectUser } from "./features/signIn/userSlice";
+import { Provider } from "react-redux";
+import store from "./app/store";
+
+const App = () => {
+  const user = useSelector(selectUser);
+
+  return <>{user ? <Dashboard /> : <SignIn />}</>;
+};
 
 const router = createBrowserRouter([
   {
@@ -14,7 +24,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Dashboard />,
+    element: <App />,
   },
   {
     path: "/dashboard",
@@ -26,4 +36,10 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(<RouterProvider router={router} />);
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
+);

@@ -3,9 +3,19 @@ import styles from "./styles.module.css";
 import { FiMenu } from "react-icons/fi";
 import { Form, Input, Button } from "reactstrap";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
+import { useDispatch } from "react-redux";
+import { signout } from "../../features/signIn/userSlice";
 
 const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const handleSignout = (e) => {
+    e.preventDefault();
+
+    dispatch(signout());
+  };
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
@@ -33,7 +43,9 @@ const Header = () => {
         </DropdownToggle>
         <DropdownMenu>
           <DropdownItem disabled>Settings (currently unavailable)</DropdownItem>
-          <DropdownItem>Sign Out</DropdownItem>
+          <DropdownItem>
+            <Button onClick={(e) => handleSignout(e)}>Sign out</Button>
+          </DropdownItem>
         </DropdownMenu>
       </Dropdown>
     </div>
