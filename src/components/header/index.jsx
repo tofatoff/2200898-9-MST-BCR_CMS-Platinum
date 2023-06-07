@@ -5,16 +5,19 @@ import { Form, Input, Button } from "reactstrap";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import { useDispatch } from "react-redux";
 import { signout } from "../../features/signIn/userSlice";
+import { useAuth } from "../../customhooks/useAuth";
 
 const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const dispatch = useDispatch();
+  const { logout } = useAuth();
 
   const handleSignout = (e) => {
     e.preventDefault();
 
     dispatch(signout());
+    logout();
   };
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
