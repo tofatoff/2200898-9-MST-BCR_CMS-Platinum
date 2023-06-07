@@ -1,40 +1,27 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import SignIn from "./pages/SignIn/index.jsx";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Cars from "./pages/Cars";
-import { useSelector } from "react-redux";
-import { selectUser } from "./features/signIn/userSlice";
 import { Provider } from "react-redux";
 import store from "./app/store";
+import { Route } from "react-router-dom";
+import { AuthLayout } from "./components/AuthLayout";
+import { ProtectedLayout } from "./components/ProtectedLayout";
 
-const App = () => {
-  const user = useSelector(selectUser);
-
-  return <>{user ? <Dashboard /> : <SignIn />}</>;
-};
-
-const router = createBrowserRouter([
-  {
-    path: "/sign-in",
-    element: <SignIn />,
-  },
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/dashboard",
-    element: <Dashboard />,
-  },
-  {
-    path: "/cars",
-    element: <Cars />,
-  },
-]);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<AuthLayout />}>
+      <Route path="/sign-in" element={<SignIn />} />
+      <Route path="/" element={<ProtectedLayout />}>
+        <Route path="dashboard" element={<Dashboard />}></Route>
+        <Route path="cars" element={<Cars />}></Route>
+      </Route>
+    </Route>
+  )
+);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

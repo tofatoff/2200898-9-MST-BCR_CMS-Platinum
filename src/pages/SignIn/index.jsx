@@ -1,26 +1,57 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Form, FormGroup, Label, Input, Button, Alert } from "reactstrap";
 import styles from "./styles.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch } from "react-redux";
 import { signin } from "../../features/signIn/userSlice";
+import { useAuth } from "../../customhooks/useAuth";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
 
   const dispatch = useDispatch();
+  const { login } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    dispatch(
-      signin({
-        email,
-        password,
-        loggedIn: true,
-      })
-    );
+    const form = new FormData(e.currentTarget);
+
+    const data = {};
+    for (const [key, value] of form.entries()) {
+      data[key] = value;
+    }
+
+    try {
+      const response = await fetch("https://bootcamp-rent-cars.herokuapp.com/admin/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        login({
+          email: data.email,
+          password: data.password,
+        });
+
+        dispatch(
+          signin({
+            email,
+            password,
+            loggedIn: true,
+          })
+        );
+      } else {
+        setShowAlert(true);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -28,7 +59,7 @@ const SignIn = () => {
       <div className={styles["login-form"]}>
         <div className={styles["logo-bcr"]}></div>
         <h1>Welcome, Admin BCR</h1>
-        <Alert color="danger">Masukkan username dan password yang benar. Perhatikan penggunaan huruf kapital.</Alert>
+        {showAlert && <Alert color="danger">Masukkan username dan password yang benar. Perhatikan penggunaan huruf kapital.</Alert>}
         <Form onSubmit={(e) => handleSubmit(e)}>
           <FormGroup>
             <Label for="exampleEmail">Email</Label>
