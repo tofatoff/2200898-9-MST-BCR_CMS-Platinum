@@ -25,7 +25,7 @@ const SignIn = () => {
     }
 
     try {
-      const response = await fetch("https://bootcamp-rent-cars.herokuapp.com/admin/auth/login", {
+      const response = await fetch("https://api-car-rental.binaracademy.org/admin/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
