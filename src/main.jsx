@@ -10,6 +10,8 @@ import store from "./app/store";
 import { Route } from "react-router-dom";
 import { AuthLayout } from "./components/AuthLayout";
 import { ProtectedLayout } from "./components/ProtectedLayout";
+import CarForm from "./pages/Cars/CarForm";
+import FormPage from "./pages/Cars/form";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +20,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<ProtectedLayout />}>
         <Route path="dashboard" element={<Dashboard />}></Route>
         <Route path="cars" element={<Cars />}></Route>
+        <Route path="cars/add" element={<FormPage />}></Route>
       </Route>
     </Route>
   )
