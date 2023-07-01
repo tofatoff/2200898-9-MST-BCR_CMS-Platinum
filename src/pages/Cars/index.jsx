@@ -1,7 +1,7 @@
-import React from "react";
 import Sidebar from "../../components/sidebar";
 import Header from "../../components/header";
-import Car from "./components";
+import ListMenu from "./components/list_menu";
+import ListCar from "./components/listcar";
 
 const Cars = () => {
   return (
@@ -13,7 +13,8 @@ const Cars = () => {
       <Sidebar active="cars" />
       <main>
         <Header />
-        <Car />
+        <ListMenu />
+        <ListCar />
       </main>
     </div>
   );
