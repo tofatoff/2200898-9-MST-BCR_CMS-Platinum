@@ -14,15 +14,11 @@ function Listcar() {
     try {
       const config = {
         headers: {
-          access_token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY3NTUxNjE1MH0.GWyuCrZVA5HuA3ODVAvgXj5GxoP82BnkUM_rJSuMi5A",
+          access_token: JSON.parse(localStorage.getItem("user")).access_token,
         },
       };
 
-      const response = await axios.get(
-        "https://api-car-rental.binaracademy.org/admin/v2/car",
-        config
-      );
+      const response = await axios.get("https://api-car-rental.binaracademy.org/admin/v2/car", config);
       setData(response.data.cars);
       console.log(setData);
     } catch (error) {
@@ -35,14 +31,7 @@ function Listcar() {
       <Container>
         <Row>
           {data.map((item) => (
-            <Listcardata
-              key={item.id}
-              name={item.name}
-              category={item.category}
-              price={item.price}
-              image={item.image}
-              updateAt={item.updateAt}
-            />
+            <Listcardata key={item.id} name={item.name} category={item.category} price={item.price} image={item.image} updateAt={item.updateAt} />
           ))}
         </Row>
       </Container>
