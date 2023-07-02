@@ -34,10 +34,9 @@ const SignIn = () => {
       });
 
       if (response.ok) {
-        login({
-          email: data.email,
-          password: data.password,
-        });
+        const data = await response.json();
+
+        login(data);
 
         dispatch(
           signin({
