@@ -1,7 +1,16 @@
 import React from "react";
-import { Col, Card, CardBody, CardTitle, CardSubtitle, CardText, Button } from "reactstrap";
+import {
+  Col,
+  Card,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  CardText,
+  Button,
+} from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { FiUsers, FiClock, FiTrash2, FiEdit } from "react-icons/fi";
+import moment from "moment";
 
 const listcardata = ({ id, name, category, price, image, updateAt }) => {
   const BASE_URL = "https://api-car-rental.binaracademy.org";
@@ -49,9 +58,14 @@ const listcardata = ({ id, name, category, price, image, updateAt }) => {
             <FiUsers></FiUsers> {category}
           </CardText>
           <CardText>
-            <FiClock></FiClock>Updated {updateAt}
+            <FiClock></FiClock>Updated at{" "}
+            {moment(updateAt).format("DD MMMM YYYY hh:mm")}
           </CardText>
-          <Button style={{ marginRight: "95px" }} className="button_delete" onClick={handleDelete}>
+          <Button
+            style={{ marginRight: "95px" }}
+            className="button_delete"
+            onClick={handleDelete}
+          >
             <FiTrash2></FiTrash2>Delete
           </Button>
           <Link to={`/cars/${id}/edit`}>
