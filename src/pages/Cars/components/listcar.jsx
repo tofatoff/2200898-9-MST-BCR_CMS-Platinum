@@ -18,9 +18,11 @@ function Listcar() {
         },
       };
 
-      const response = await axios.get("https://api-car-rental.binaracademy.org/admin/v2/car", config);
+      const response = await axios.get(
+        "https://api-car-rental.binaracademy.org/admin/v2/car",
+        config
+      );
       setData(response.data.cars);
-      console.log(setData);
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +33,15 @@ function Listcar() {
       <Container>
         <Row>
           {data.map((item) => (
-            <Listcardata key={item.id} id={item.id} name={item.name} category={item.category} price={item.price} image={item.image} updateAt={item.updateAt} />
+            <Listcardata
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              category={item.category}
+              price={item.price}
+              image={item.image}
+              updateAt={item.updatedAt}
+            />
           ))}
         </Row>
       </Container>
