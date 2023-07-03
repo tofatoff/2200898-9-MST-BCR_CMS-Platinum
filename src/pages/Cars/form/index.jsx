@@ -18,15 +18,20 @@ const FormPage = () => {
       }}
     >
       <Sidebar active="cars" />
-      <main>
+      <main style={{ flexGrow: 1 }}>
         <Header />
         <Breadcrumb>
           <BreadcrumbItem>
-            <a href="#">Home</a>
+            <a href="/cars">Cars</a>
           </BreadcrumbItem>
-          <BreadcrumbItem active>Library</BreadcrumbItem>
+          <BreadcrumbItem>List Car</BreadcrumbItem>
+          <BreadcrumbItem active>
+            {addOrEdit} {addOrEdit == "Add" ? "New" : ""} Car
+          </BreadcrumbItem>
         </Breadcrumb>
-        <h1>{addOrEdit} New Car</h1>
+        <h1>
+          {addOrEdit} {addOrEdit == "Add" ? "New" : ""} Car
+        </h1>
         <CarForm mode={addOrEdit} carID={carID ? carID : undefined} />
       </main>
     </div>

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Form, FormGroup, Label, Input, FormText, Button } from "reactstrap";
+import { Form, Row, Label, Input, FormText, Button, Col } from "reactstrap";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import styles from "./styles.module.css";
 
 const CarForm = ({ mode, carID }) => {
   const BASE_URL = "https://api-car-rental.binaracademy.org";
@@ -90,42 +90,70 @@ const CarForm = ({ mode, carID }) => {
   };
 
   return (
-    <Form onSubmit={onHandleSubmit}>
-      <FormGroup>
-        <Label for="carname">Nama/Tipe Mobil*</Label>
-        <Input id="carname" placeholder="Input Nama/Tipe Mobil" onChange={handleName} value={name} required></Input>
-      </FormGroup>
-      <FormGroup>
-        <Label for="carPrice">Harga*</Label>
-        <Input id="carPrice" placeholder="Input Harga Sewa Mobil" onChange={handlePrice} value={price} required></Input>
-      </FormGroup>
-      <FormGroup>
-        <Label for="carphoto">File</Label>
-        <Input id="carphoto" name="file" type="file" onChange={handleImage} />
-        <FormText>File size max. 2MB</FormText>
-      </FormGroup>
-      <FormGroup>
-        <Label for="carcategory">Kategori</Label>
-        <Input id="carcategory" name="select" type="select" onChange={handleCategory} value={category} required>
-          <option hidden>Pilih Kategori Mobil</option>
-          <option value="small">2 - 4 orang</option>
-          <option value="medium">4 - 6 orang</option>
-          <option value="large">6 - 8 orang</option>
-        </Input>
-      </FormGroup>
-      <FormGroup>
-        <Label>Created at</Label>
-        <span>{createdAt}</span>
-      </FormGroup>
-      <FormGroup>
-        <Label>Updated at</Label>
-        <span>{updatedAt}</span>
-      </FormGroup>
-      <Button color="primary" outline>
-        Cancel
-      </Button>
-      <Button color="primary">Save</Button>
-    </Form>
+    <div className={styles.formBox}>
+      <Form onSubmit={onHandleSubmit} className={styles.formContent}>
+        <Row>
+          <Col>
+            <Label for="carname" className="col">
+              Nama/Tipe Mobil*
+            </Label>
+          </Col>
+          <Col>
+            <Input id="carname" placeholder="Input Nama/Tipe Mobil" onChange={handleName} value={name} required className="col"></Input>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Label for="carPrice">Harga*</Label>
+          </Col>
+          <Col>
+            <Input id="carPrice" placeholder="Input Harga Sewa Mobil" onChange={handlePrice} value={price} required></Input>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Label for="carphoto">File</Label>
+          </Col>
+          <Col>
+            <Input id="carphoto" name="file" type="file" onChange={handleImage} />
+            <FormText>File size max. 2MB</FormText>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Label for="carcategory">Kategori</Label>
+          </Col>
+          <Col>
+            <Input id="carcategory" name="select" type="select" onChange={handleCategory} value={category} required>
+              <option hidden>Pilih Kategori Mobil</option>
+              <option value="small">2 - 4 orang</option>
+              <option value="medium">4 - 6 orang</option>
+              <option value="large">6 - 8 orang</option>
+            </Input>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Label>Created at</Label>
+          </Col>
+          <Col>
+            <span>{createdAt}</span>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Label>Updated at</Label>
+          </Col>
+          <Col>
+            <span>{updatedAt}</span>
+          </Col>
+        </Row>
+        <Button color="primary" outline>
+          Cancel
+        </Button>
+        <Button color="primary">Save</Button>
+      </Form>
+    </div>
   );
 };
 

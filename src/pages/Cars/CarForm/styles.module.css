@@ -1,0 +1,12 @@
+.formBox {
+  background: white;
+}
+
+.formContent {
+  padding: 20px;
+  width: 50%;
+}
+
+.formContainer button {
+  margin: 10px;
+}
