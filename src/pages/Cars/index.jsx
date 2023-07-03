@@ -1,4 +1,4 @@
-import Sidebar from "../../components/sidebar";
+import Sidebar from "../../components/sidebar/Sidebar";
 import Header from "../../components/header";
 import ListMenu from "./components/list_menu";
 import ListCar from "./components/listcar";

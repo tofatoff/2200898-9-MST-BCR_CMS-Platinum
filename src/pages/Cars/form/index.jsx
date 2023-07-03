@@ -1,8 +1,16 @@
 import React from "react";
 import CarForm from "../CarForm";
-import Sidebar from "../../../components/sidebar";
+import Sidebar from "../../../components/sidebar/Sidebar";
 import Header from "../../../components/header";
-import { Breadcrumb, BreadcrumbItem, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText,
+} from "reactstrap";
 import "./styles.scss";
 import { useParams } from "react-router";
 
