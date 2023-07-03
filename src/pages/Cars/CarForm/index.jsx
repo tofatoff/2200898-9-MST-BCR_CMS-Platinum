@@ -43,25 +43,33 @@ const CarForm = ({ mode, carID }) => {
 
   const onHandleSubmit = async (e) => {
     e.preventDefault();
-    // const form = e.currentTarget.elements;
+
     const formData = {
       name,
       price,
       image,
       category,
     };
-    try {
-      const response = await fetch(`${BASE_URL}/admin/car/${carID}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          access_token: JSON.parse(localStorage.getItem("user")).access_token,
-        },
-        body: JSON.stringify(formData),
-      });
 
-      if (response.ok) {
+    try {
+      if (mode == "Edit") {
+        const response = await fetch(`${BASE_URL}/admin/car/${carID}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            access_token: JSON.parse(localStorage.getItem("user")).access_token,
+          },
+          body: JSON.stringify(formData),
+        });
       } else {
+        const response = await fetch(`${BASE_URL}/admin/car`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            access_token: JSON.parse(localStorage.getItem("user")).access_token,
+          },
+          body: JSON.stringify(formData),
+        });
       }
 
       navigate("/cars");

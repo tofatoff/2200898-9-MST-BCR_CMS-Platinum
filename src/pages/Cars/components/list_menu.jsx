@@ -1,15 +1,6 @@
 import React from "react";
 import "./listmenu.css";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
-  Row,
-  Col,
-  Container,
-  ButtonGroup,
-  ButtonToolbar,
-} from "reactstrap";
+import { Breadcrumb, BreadcrumbItem, Button, Row, Col, Container, ButtonGroup, ButtonToolbar } from "reactstrap";
 import { Link } from "react-router-dom";
 
 const ListMenu = () => {
@@ -28,7 +19,7 @@ const ListMenu = () => {
               <p>List Car</p>
             </Col>
             <Col className="Add_button">
-              <Link to="add">
+              <Link to="/cars/add">
                 <Button color="primary">+ Add New Chart</Button>
               </Link>
             </Col>
