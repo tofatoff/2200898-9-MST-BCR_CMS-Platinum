@@ -1,9 +1,27 @@
 import React from "react";
 import { Col, Card, CardBody, CardTitle, CardSubtitle, CardText, Button } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiUsers, FiClock, FiTrash2, FiEdit } from "react-icons/fi";
 
 const listcardata = ({ id, name, category, price, image, updateAt }) => {
+  const BASE_URL = "https://api-car-rental.binaracademy.org";
+  const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    const result = window.confirm("Are you sure you want to proceed?");
+    if (result) {
+      const response = await fetch(`${BASE_URL}/admin/car/${id}`, {
+        method: "DELETE",
+        headers: {
+          access_token: JSON.parse(localStorage.getItem("user")).access_token,
+        },
+      });
+      navigate("/cars");
+    } else {
+      window.alert("Delete cancelled");
+    }
+  };
+
   return (
     <Col md={4}>
       <Card
@@ -33,11 +51,9 @@ const listcardata = ({ id, name, category, price, image, updateAt }) => {
           <CardText>
             <FiClock></FiClock>Updated {updateAt}
           </CardText>
-          <Link to="#">
-            <Button style={{ marginRight: "95px" }} className="button_delete">
-              <FiTrash2></FiTrash2>Delete
-            </Button>
-          </Link>
+          <Button style={{ marginRight: "95px" }} className="button_delete" onClick={handleDelete}>
+            <FiTrash2></FiTrash2>Delete
+          </Button>
           <Link to={`/cars/${id}/edit`}>
             <Button className="button_edit">
               <FiEdit></FiEdit>Edit

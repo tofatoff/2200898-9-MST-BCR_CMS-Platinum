@@ -27,7 +27,7 @@ const FormPage = () => {
           <BreadcrumbItem active>Library</BreadcrumbItem>
         </Breadcrumb>
         <h1>{addOrEdit} New Car</h1>
-        <CarForm mode={addOrEdit} carID={carID} />
+        <CarForm mode={addOrEdit} carID={carID ? carID : undefined} />
       </main>
     </div>
   );

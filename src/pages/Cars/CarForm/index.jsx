@@ -51,24 +51,22 @@ const CarForm = ({ mode, carID }) => {
       category,
     };
 
+    console.log(formData);
+
     try {
       if (mode == "Edit") {
-        const response = await fetch(`${BASE_URL}/admin/car/${carID}`, {
-          method: "PUT",
+        const response = await axios.put(`${BASE_URL}/admin/car/${carID}`, formData, {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             access_token: JSON.parse(localStorage.getItem("user")).access_token,
           },
-          body: JSON.stringify(formData),
         });
       } else {
-        const response = await fetch(`${BASE_URL}/admin/car`, {
-          method: "POST",
+        const response = await axios.post(`${BASE_URL}/admin/car`, formData, {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             access_token: JSON.parse(localStorage.getItem("user")).access_token,
           },
-          body: JSON.stringify(formData),
         });
       }
 
