@@ -21,7 +21,7 @@ const router = createBrowserRouter(
         <Route path="dashboard" element={<Dashboard />}></Route>
         <Route path="cars" element={<Cars />}></Route>
         <Route path="cars/add" element={<FormPage />}></Route>
-        <Route path="cars/:id/edit" element={<FormPage />}></Route>
+        <Route path="cars/:carID/edit" element={<FormPage />}></Route>
       </Route>
     </Route>
   )

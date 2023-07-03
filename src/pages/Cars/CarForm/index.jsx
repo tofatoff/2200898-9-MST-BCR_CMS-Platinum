@@ -2,66 +2,71 @@ import { useState, useEffect } from "react";
 import { Form, FormGroup, Label, Input, FormText, Button } from "reactstrap";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
-const CarForm = () => {
+const CarForm = ({ mode, carID }) => {
+  const BASE_URL = "https://api-car-rental.binaracademy.org";
   const navigate = useNavigate();
-  const { id } = useParams();
-  const loc = useLocation();
   const [name, setName] = useState("");
   const [price, setPrice] = useState(null);
   const [image, setImage] = useState(null);
   const [category, setCategory] = useState("");
-  const dispatch = useDispatch();
-  const selector = useSelector((state) => state.dashboardStore);
-  const selectEdit = selector.detailCar;
+  const [createdAt, setCreatedAt] = useState("");
+  const [updatedAt, setUpdatedAt] = useState("");
 
-  const addNewCarForm = async () => {
-    dispatch(uploadedCarDashboard({ name, price, category, image }))
-      .unwrap()
-      .then(() => {
-        navigate("/cars?formSuccess=true");
-      })
-      .catch((error) => {
-        setTimeout(() => {
-          alert(error);
-        }, 1500);
-      });
-  };
+  if (mode == "Edit") {
+    useEffect(() => {
+      getCarData();
+    }, []);
 
-  const editCarForm = async () => {
-    dispatch(editedCarDashboard({ name, price, category, image, id }))
-      .unwrap()
-      .then(() => {
-        navigate("/cars?formSuccess=true");
-      })
-      .catch((error) => {
-        setTimeout(() => {
-          alert(error);
-        }, 1500);
-      });
-  };
+    const getCarData = async () => {
+      try {
+        const config = {
+          headers: {
+            access_token: JSON.parse(localStorage.getItem("user")).access_token,
+          },
+        };
 
-  const getDetailCar = async () => {
-    dispatch(detailCarDashboard(id));
-  };
+        const response = await axios.get(`${BASE_URL}/admin/car/${carID}`, config);
 
-  useEffect(() => {
-    if (loc.pathname.includes("edit")) {
-      getDetailCar();
-    }
-  }, [loc.pathname]);
+        setName(response.data.name);
+        setPrice(response.data.price);
+        setImage(response.data.image);
+        setCategory(response.data.category);
+        setCreatedAt(response.data.createdAt);
+        setUpdatedAt(response.data.updatedAt);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  }
 
-  const formData = (e) => {
+  const onHandleSubmit = async (e) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    if (form.checkValidity()) {
-      if (formFunction === "add") {
-        addNewCarForm();
+    // const form = e.currentTarget.elements;
+    const formData = {
+      name,
+      price,
+      image,
+      category,
+    };
+    try {
+      const response = await fetch(`${BASE_URL}/admin/car/${carID}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          access_token: JSON.parse(localStorage.getItem("user")).access_token,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+      } else {
       }
 
-      if (formFunction === "edit") {
-        editCarForm();
-      }
+      navigate("/cars");
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -79,23 +84,23 @@ const CarForm = () => {
   };
 
   return (
-    <Form onSubmit={formData}>
+    <Form onSubmit={onHandleSubmit}>
       <FormGroup>
         <Label for="carname">Nama/Tipe Mobil*</Label>
-        <Input id="carname" placeholder="Input Nama/Tipe Mobil" onChange={handleName} required></Input>
+        <Input id="carname" placeholder="Input Nama/Tipe Mobil" onChange={handleName} value={name} required></Input>
       </FormGroup>
       <FormGroup>
         <Label for="carPrice">Harga*</Label>
-        <Input id="carPrice" placeholder="Input Harga Sewa Mobil" onChange={handlePrice} required></Input>
+        <Input id="carPrice" placeholder="Input Harga Sewa Mobil" onChange={handlePrice} value={price} required></Input>
       </FormGroup>
       <FormGroup>
         <Label for="carphoto">File</Label>
-        <Input id="carphoto" name="file" type="file" onChange={handleImage} required />
+        <Input id="carphoto" name="file" type="file" onChange={handleImage} />
         <FormText>File size max. 2MB</FormText>
       </FormGroup>
       <FormGroup>
         <Label for="carcategory">Kategori</Label>
-        <Input id="carcategory" name="select" type="select" onChange={handleCategory} required>
+        <Input id="carcategory" name="select" type="select" onChange={handleCategory} value={category} required>
           <option hidden>Pilih Kategori Mobil</option>
           <option value="small">2 - 4 orang</option>
           <option value="medium">4 - 6 orang</option>
@@ -104,9 +109,11 @@ const CarForm = () => {
       </FormGroup>
       <FormGroup>
         <Label>Created at</Label>
+        <span>{createdAt}</span>
       </FormGroup>
       <FormGroup>
         <Label>Updated at</Label>
+        <span>{updatedAt}</span>
       </FormGroup>
       <Button color="primary" outline>
         Cancel

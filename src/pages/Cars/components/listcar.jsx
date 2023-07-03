@@ -31,7 +31,7 @@ function Listcar() {
       <Container>
         <Row>
           {data.map((item) => (
-            <Listcardata key={item.id} name={item.name} category={item.category} price={item.price} image={item.image} updateAt={item.updateAt} />
+            <Listcardata key={item.id} id={item.id} name={item.name} category={item.category} price={item.price} image={item.image} updateAt={item.updateAt} />
           ))}
         </Row>
       </Container>

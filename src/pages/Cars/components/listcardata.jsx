@@ -1,17 +1,9 @@
 import React from "react";
-import {
-  Col,
-  Card,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardText,
-  Button,
-} from "reactstrap";
+import { Col, Card, CardBody, CardTitle, CardSubtitle, CardText, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import { FiUsers, FiClock, FiTrash2, FiEdit } from "react-icons/fi";
 
-const listcardata = ({ name, category, price, image, updateAt }) => {
+const listcardata = ({ id, name, category, price, image, updateAt }) => {
   return (
     <Col md={4}>
       <Card
@@ -46,7 +38,7 @@ const listcardata = ({ name, category, price, image, updateAt }) => {
               <FiTrash2></FiTrash2>Delete
             </Button>
           </Link>
-          <Link to="#">
+          <Link to={`/cars/${id}/edit`}>
             <Button className="button_edit">
               <FiEdit></FiEdit>Edit
             </Button>
